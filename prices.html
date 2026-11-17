@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prices | Deegan's Printing Garage</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #080808;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    border-bottom: 1px solid #444;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 5px;
+    margin-top: 4px;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+nav a:hover,
+nav a.active {
+    border-bottom: 3px solid white;
+}
+
+.hero {
+    padding: 65px 5% 35px;
+    background: linear-gradient(110deg, #050505, #292929, #080808);
+}
+
+.hero h1 {
+    font-size: clamp(55px, 9vw, 100px);
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: -4px;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #ddd;
+    margin-top: 10px;
+}
+
+.section {
+    padding: 40px 5%;
+}
+
+.section h2 {
+    font-size: 32px;
+    margin-bottom: 25px;
+    border-left: 5px solid white;
+    padding-left: 15px;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.price-card {
+    background: white;
+    color: black;
+    padding: 25px;
+    border-radius: 15px;
+    transition: transform 0.2s;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+}
+
+.price-card h3 {
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.price-card p {
+    color: #666;
+    margin-top: 5px;
+}
+
+footer {
+    border-top: 1px solid #333;
+    padding: 25px;
+    text-align: center;
+    color: #888;
+    margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+    header {
+        justify-content: center;
+    }
+
+    nav {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .section h2 {
+        font-size: 27px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        DEEGAN'S
+        <span>PRINTING GARAGE</span>
+    </div>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="prices.html" class="active" aria-current="page">Prices</a>
+        <a href="index.html#ebikes">E-Bikes</a>
+        <a href="ragdolls.html">Ragdolls</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Prices</h1>
+    <p>Simple pricing for your next 3D print.</p>
+</section>
+
+<main>
+    <section class="section">
+        <h2>Mini E-Bikes</h2>
+
+        <div class="price-grid">
+            <div class="price-card">
+                <h3>Mini Surron Light Bee X</h3>
+                <div class="price">$10</div>
+                <p>Per model</p>
+            </div>
+
+            <div class="price-card">
+                <h3>Mini Surron Ultra Bee</h3>
+                <div class="price">$10</div>
+                <p>Per model</p>
+            </div>
+
+            <div class="price-card">
+                <h3>Mini Talaria X3 XXX</h3>
+                <div class="price">$10</div>
+                <p>Per model</p>
+            </div>
+
+            <div class="price-card">
+                <h3>Mini Full Suspension Stark Varg</h3>
+                <div class="price">$10</div>
+                <p>Per model</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Ragdolls</h2>
+
+        <div class="price-grid">
+            <div class="price-card">
+                <h3>Dummy 13 Ragdoll</h3>
+                <div class="price">$6</div>
+                <p>Per model</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2026 Deegan's Printing Garage. All rights reserved.
+</footer>
+
+</body>
+</html>
