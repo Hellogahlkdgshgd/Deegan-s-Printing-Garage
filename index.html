@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Deegan's Print Garage</title>
+
+<style>
+:root {
+  --bg: #080808;
+  --panel: #111;
+  --line: #292929;
+  --white: #f5f5f5;
+  --muted: #a1a1a1;
+  --green: #35d17b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+button, input {
+  font: inherit;
+}
+
+.topbar {
+  min-height: 76px;
+  padding: 0 clamp(18px, 6vw, 86px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: #090909;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.brand {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.brand span {
+  color: #888;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #aaa;
+  padding: 12px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.tab:hover {
+  color: white;
+  background: #171717;
+}
+
+.tab.active {
+  background: #f2f2f2;
+  color: #080808;
+}
+
+.hero {
+  min-height: 420px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 42px;
+  padding: 54px clamp(20px, 7vw, 100px);
+  background: radial-gradient(
+    ellipse at 78% 45%,
+    #242424 0,
+    #111 35%,
+    #080808 75%
+  );
+}
+
+.kicker {
+  color: #888;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 17px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: .96;
+  letter-spacing: -2.5px;
+  text-transform: uppercase;
+}
+
+.hero p {
+  color: #aaa;
+  line-height: 1.65;
+  max-width: 440px;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-visual img {
+  width: min(100%, 440px);
+  aspect-ratio: 1.25/1;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid #333;
+  box-shadow: 0 25px 70px #0009;
+}
+
+.hero-cta {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 20px;
+  background: #f5f5f5;
+  color: #080808;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.hero-cta:hover {
+  background: #ccc;
+}
+
+main {
+  max-width: 1120px;
+  margin: auto;
+  padding: 58px 24px 90px;
+}
+
+.section-head {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  color: #888;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.section-head h2 {
+  font-size: 30px;
+  letter-spacing: -.5px;
+}
+
+.section-head p {
+  color: #999;
+  font-size: 14px;
+  margin-top: 9px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 25px 0 16px;
+}
+
+.search {
+  width: 100%;
+  max-width: 470px;
+  padding: 15px 17px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.search:focus {
+  border-color: #888;
+}
+
+.count {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.bike-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.bike-card {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 30px;
+  align-items: center;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+}
+
+.bike-card:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.bike-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 15px;
+  background: #ddd;
+}
+
+.bike-info h3 {
+  font-size: clamp(21px, 3vw, 30px);
+  line-height: 1.2;
+  margin-bottom: 11px;
+}
+
+.tag {
+  display: inline-block;
+  background: #092b19;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 20px;
+  margin: 0 0 10px;
+}
+
+.bike-info p {
+  color: #aaa;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 17px;
+  max-width: 600px;
+}
+
+.model-link {
+  display: inline-block;
+  color: #f5f5f5;
+  text-decoration: none;
+  font-size: 19px;
+  border-bottom: 2px dotted #888;
+  padding-bottom: 5px;
+}
+
+.model-link:hover {
+  color: #bbb;
+}
+
+.source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #bbb;
+  background: #242424;
+  border-radius: 30px;
+  padding: 8px 12px;
+  width: max-content;
+  margin-top: 15px;
+  font-size: 12px;
+}
+
+.source-icon {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ff7043;
+  color: white;
+  font-size: 11px;
+}
+
+.empty {
+  display: none;
+  color: #999;
+  padding: 30px 0;
+}
+
+.coming {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, #111, #090909);
+  padding: 35px;
+  border-radius: 8px;
+}
+
+.coming-mark {
+  width: 58px;
+  height: 58px;
+  border: 1px solid #444;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #aaa;
+  font-size: 25px;
+  margin-bottom: 23px;
+}
+
+.coming h2 {
+  font-size: clamp(25px, 5vw, 40px);
+  letter-spacing: 1px;
+}
+
+.coming p {
+  color: #999;
+  margin-top: 13px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hidden {
+  display: none !important;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 28px 20px;
+  text-align: center;
+  color: #777;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+@media(max-width:700px) {
+  .topbar {
+    min-height: 68px;
+    padding: 12px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    font-size: 13px;
+  }
+
+  .nav {
+    gap: 3px;
+  }
+
+  .tab {
+    padding: 10px 11px;
+    font-size: 10px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 38px 20px;
+  }
+
+  .hero-visual {
+    grid-row: 1;
+  }
+
+  .hero-visual img {
+    max-width: 340px;
+  }
+
+  .hero-copy {
+    text-align: center;
+  }
+
+  .hero-copy p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero h1 {
+    font-size: 46px;
+  }
+
+  main {
+    padding: 43px 18px 65px;
+  }
+
+  .toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .search {
+    max-width: none;
+  }
+
+  .bike-card {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 16px;
+    padding: 22px 0;
+  }
+
+  .bike-image {
+    border-radius: 11px;
+  }
+
+  .bike-info h3 {
+    font-size: 19px;
+  }
+
+  .bike-info p {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .model-link {
+    font-size: 15px;
+  }
+
+  .source {
+    font-size: 10px;
+    margin-top: 11px;
+    padding: 7px 10px;
+  }
+
+  .section-head h2 {
+    font-size: 26px;
+  }
+}
+
+@media(max-width:390px) {
+  .brand {
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .tab {
+    padding: 9px 8px;
+    font-size: 9px;
+  }
+
+  .bike-card {
+    grid-template-columns: 95px minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .bike-info h3 {
+    font-size: 17px;
+  }
+
+  .model-link {
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand">DEEGAN'S <span>PRINT GARAGE</span></div>
+
+  <nav class="nav" aria-label="Main navigation">
+    <a class="tab" href="index.html">HOME</a>
+    <a class="tab" href="#ebikes">E-BIKES</a>
+    <a class="tab" href="ragdolls.html">RAGDOLLS</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+
+  <div class="hero-copy">
+    <div class="kicker">The print library</div>
+
+    <h1>Mini bikes.<br>Made to print.</h1>
+
+    <p>
+      A growing collection of miniature electric dirt bike models.
+      Browse the bikes and open their original print-file pages.
+    </p>
+
+    <a class="hero-cta" href="#ebikes">
+      BROWSE E-BIKES
+    </a>
+  </div>
+
+  <div class="hero-visual">
+    <img src="images/light-bee-x.webp"
+      alt="Mini Surron Light Bee X">
+  </div>
+
+</section>
+
+<main id="library">
+
+  <section id="ebikes">
+
+    <div class="section-head">
+      <div class="eyebrow">Browse the collection</div>
+      <h2>E-BIKE PRINT FILES</h2>
+      <p>
+        Search the collection or select a model to open its MakerWorld page.
+      </p>
+    </div>
+
+    <div class="toolbar">
+
+      <input class="search" id="search" type="search"
+        placeholder="Search e-bike print files..."
+        aria-label="Search e-bike print files">
+
+      <span class="count" id="count">4 MODELS</span>
+
+    </div>
+
+    <div class="bike-list" id="bikeList">
+
+      <!-- BIKE 1 -->
+
+      <article class="bike-card"
+        data-search="mini surron light bee x 1:9 scale electric dirt bike suspension wheels free">
+
+        <img class="bike-image"
+          src="images/light-bee-x.webp"
+          alt="Mini Surron Light Bee X">
+
+        <div class="bike-info">
+
+          <h3>1. Mini Surron Light Bee X</h3>
+
+          <span class="tag">Free</span>
+
+          <p>
+            Complete 1:9 scale bike, suspension and wheels.
+          </p>
+
+          <a class="model-link"
+            href="https://makerworld.com/en/models/1607238-mini-surron-light-bee-x-scale-electric-dirt-bike"
+            target="_blank" rel="noopener noreferrer">
+            Download STL files ↗
+          </a>
+
+          <div class="source">
+            <span class="source-icon">◇</span>
+            MakerWorld
+          </div>
+
+        </div>
+      </article>
+
+      <!-- BIKE 2 -->
+
+      <article class="bike-card"
+        data-search="mini surron ultra bee scale electric dirt bike complete model">
+
+        <img class="bike-image"
+          src="images/ultra-bee.webp"
+          alt="Mini Surron Ultra Bee">
+
+        <div class="bike-info">
+
+          <h3>2. Mini Surron Ultra Bee</h3>
+
+          <p>
+            Another complete bike design.
+          </p>
+
+          <a class="model-link"
+            href="https://makerworld.com/en/models/2309089-mini-surron-ultra-bee-scale-electric-dirt-bike"
+            target="_blank" rel="noopener noreferrer">
+            Find printable files ↗
+          </a>
+
+          <div class="source">
+            <span class="source-icon">◇</span>
+            MakerWorld
+          </div>
+
+        </div>
+      </article>
+
+      <!-- BIKE 3 -->
+
+      <article class="bike-card"
+        data-search="mini talaria x3 xxx electric dirt bike miniature model">
+
+        <img class="bike-image"
+          src="images/talaria-x3-xxx.webp"
+          alt="Mini Talaria X3 XXX">
+
+        <div class="bike-info">
+
+          <h3>3. Mini Talaria</h3>
+
+          <p>
+            Miniature Talaria X3 XXX electric dirt bike model.
+          </p>
+
+          <a class="model-link"
+            href="https://makerworld.com/en/models/2228533-mini-talaria-x3-xxx-electric-dirt-bike"
+            target="_blank" rel="noopener noreferrer">
+            Find printable files ↗
+          </a>
+
+          <div class="source">
+            <span class="source-icon">◇</span>
+            MakerWorld
+          </div>
+
+        </div>
+      </article>
+
+      <!-- BIKE 4 -->
+
+      <article class="bike-card"
+        data-search="mini full suspension stark varg electric dirt bike suspension model">
+
+        <img class="bike-image"
+          src="images/stark-varg.webp"
+          alt="Mini Stark Varg">
+
+        <div class="bike-info">
+
+          <h3>4. Mini Full Suspension Stark Varg</h3>
+
+          <span class="tag">Free</span>
+
+          <p>
+            Mini Stark Varg model featuring full working suspension
+            and detailed parts.
+          </p>
+
+          <a class="model-link"
+            href="https://makerworld.com/en/models/2293135-mini-full-suspension-stark-varg-model"
+            target="_blank" rel="noopener noreferrer">
+            Download STL files ↗
+          </a>
+
+          <div class="source">
+            <span class="source-icon">◇</span>
+            MakerWorld
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+
+    <p class="empty" id="empty">
+      No matching e-bike print files found.
+    </p>
+
+  </section>
+
+</main>
+
+<footer>
+  DEEGAN'S PRINT GARAGE · MY PRINT FILE COLLECTION
+</footer>
+
+<script>
+
+// SEARCH FUNCTION
+
+const search = document.getElementById('search');
+
+const cards = [
+  ...document.querySelectorAll('.bike-card')
+];
+
+const empty = document.getElementById('empty');
+
+const count = document.getElementById('count');
+
+search.addEventListener('input', () => {
+
+  const term = search.value.trim().toLowerCase();
+
+  let visible = 0;
+
+  cards.forEach(card => {
+
+    const match = card.dataset.search.includes(term);
+
+    card.classList.toggle('hidden', !match);
+
+    if (match) visible++;
+
+  });
+
+  empty.style.display = visible ? 'none' : 'block';
+
+  count.textContent = `${visible} ${
+    visible === 1 ? 'MODEL' : 'MODELS'
+  }`;
+
+});
+
+</script>
+
+</body>
+</html>
