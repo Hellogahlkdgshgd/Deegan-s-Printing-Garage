@@ -97,15 +97,18 @@ nav a.active {
 }
 
 .price-card {
+    display: block;
     background: white;
     color: black;
     padding: 25px;
     border-radius: 15px;
-    transition: transform 0.2s;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .price-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 25px #444;
 }
 
 .price-card h3 {
@@ -120,7 +123,14 @@ nav a.active {
 
 .price-card p {
     color: #666;
-    margin-top: 5px;
+    margin-top: 8px;
+}
+
+.click-note {
+    color: #777;
+    font-size: 12px;
+    margin-top: 15px;
+    font-weight: bold;
 }
 
 footer {
@@ -174,29 +184,33 @@ footer {
         <h2>Mini E-Bikes</h2>
 
         <div class="price-grid">
-            <div class="price-card">
+            <a class="price-card" href="index.html#light-bee-x">
                 <h3>Mini Surron Light Bee X</h3>
                 <div class="price">$10</div>
                 <p>Per model</p>
-            </div>
+                <div class="click-note">CLICK TO VIEW MODEL →</div>
+            </a>
 
-            <div class="price-card">
+            <a class="price-card" href="index.html#ultra-bee">
                 <h3>Mini Surron Ultra Bee</h3>
                 <div class="price">$10</div>
                 <p>Per model</p>
-            </div>
+                <div class="click-note">CLICK TO VIEW MODEL →</div>
+            </a>
 
-            <div class="price-card">
+            <a class="price-card" href="index.html#talaria">
                 <h3>Mini Talaria X3 XXX</h3>
                 <div class="price">$10</div>
                 <p>Per model</p>
-            </div>
+                <div class="click-note">CLICK TO VIEW MODEL →</div>
+            </a>
 
-            <div class="price-card">
+            <a class="price-card" href="index.html#stark-varg">
                 <h3>Mini Full Suspension Stark Varg</h3>
                 <div class="price">$10</div>
                 <p>Per model</p>
-            </div>
+                <div class="click-note">CLICK TO VIEW MODEL →</div>
+            </a>
         </div>
     </section>
 
@@ -204,11 +218,12 @@ footer {
         <h2>Ragdolls</h2>
 
         <div class="price-grid">
-            <div class="price-card">
+            <a class="price-card" href="ragdolls.html#dummy-13">
                 <h3>Dummy 13 Ragdoll</h3>
                 <div class="price">$6</div>
                 <p>Per model</p>
-            </div>
+                <div class="click-note">CLICK TO VIEW MODEL →</div>
+            </a>
         </div>
     </section>
 </main>
