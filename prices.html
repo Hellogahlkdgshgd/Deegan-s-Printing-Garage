@@ -23,13 +23,16 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 5%;
-    border-bottom: 1px solid #444;
+    padding: 18px 5%;
+    border-bottom: 1px solid #333;
     gap: 25px;
-    flex-wrap: wrap;
+    position: relative;
+    z-index: 100;
 }
 
 .logo {
+    color: white;
+    text-decoration: none;
     font-size: 25px;
     font-weight: 900;
     letter-spacing: 2px;
@@ -44,21 +47,71 @@ header {
 
 nav {
     display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
 }
 
-nav a {
+nav a,
+.nav-button {
     color: white;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bold;
-    padding: 10px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 nav a:hover,
-nav a.active {
-    border-bottom: 3px solid white;
+.nav-button:hover {
+    color: #aaa;
+}
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-button {
+    padding: 12px 0;
+}
+
+.nav-button span {
+    margin-left: 5px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -15px;
+    min-width: 185px;
+    background: #171717;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .5);
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background: #333;
+    color: white;
+}
+
+.favorites-link {
+    font-size: 27px;
 }
 
 .hero {
@@ -143,16 +196,27 @@ footer {
 
 @media (max-width: 600px) {
     header {
-        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
     }
 
     nav {
         justify-content: center;
-        gap: 20px;
+        gap: 17px;
+        flex-wrap: wrap;
+    }
+
+    nav a,
+    .nav-button {
+        font-size: 13px;
     }
 
     .section h2 {
         font-size: 27px;
+    }
+
+    .dropdown-menu {
+        min-width: 160px;
     }
 }
 </style>
@@ -161,16 +225,44 @@ footer {
 <body>
 
 <header>
-    <div class="logo">
+    <a href="index.html" class="logo">
         DEEGAN'S
         <span>PRINTING GARAGE</span>
-    </div>
+    </a>
 
     <nav aria-label="Main navigation">
+
         <a href="index.html">Home</a>
-        <a href="prices.html" class="active" aria-current="page">Prices</a>
-        <a href="index.html#ebikes">E-Bikes</a>
-        <a href="ragdolls.html">Ragdolls</a>
+
+        <div class="nav-dropdown">
+            <button class="nav-button" type="button">
+                Shop <span>⌄</span>
+            </button>
+
+            <div class="dropdown-menu">
+                <a href="index.html#ebikes">All Prints</a>
+                <a href="index.html#ebikes">E-Bikes</a>
+                <a href="ragdolls.html">Ragdolls</a>
+                <a href="index.html#accessories">Accessories</a>
+                <a href="index.html#new-arrivals">New Arrivals</a>
+            </div>
+        </div>
+
+        <div class="nav-dropdown">
+            <button class="nav-button" type="button">
+                More <span>⌄</span>
+            </button>
+
+            <div class="dropdown-menu">
+                <a href="prices.html" aria-current="page">Prices</a>
+                <a href="favorites.html">Favorites</a>
+                <a href="custom-orders.html">Custom Orders</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+
+        <a href="favorites.html" class="favorites-link" aria-label="Favorites">♡</a>
+
     </nav>
 </header>
 
