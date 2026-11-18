@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Favorites | Deegan's Printing Garage</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #080808;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+
+.site-header {
+    min-height: 95px;
+    background: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    border-bottom: 1px solid #333;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.main-nav a,
+.nav-button {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-nav a:hover,
+.nav-button:hover,
+.main-nav a.active {
+    border-bottom: 2px solid white;
+}
+
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 190px;
+    background: #111;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 8px;
+    z-index: 1000;
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+    background: #292929;
+    border-bottom: none;
+}
+
+.favorites-link {
+    font-size: 27px !important;
+}
+
+.hero {
+    padding: 55px 5% 35px;
+    background: linear-gradient(110deg, #050505, #292929, #080808);
+}
+
+.hero h1 {
+    font-size: clamp(42px, 8vw, 76px);
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: -3px;
+}
+
+.hero p {
+    color: #ddd;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+main {
+    max-width: 1120px;
+    min-height: 300px;
+    margin: auto;
+    padding: 45px 24px 70px;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+.favorite-card {
+    overflow: hidden;
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 12px;
+}
+
+.favorite-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #222;
+}
+
+.favorite-info {
+    padding: 18px;
+}
+
+.favorite-info h2 {
+    font-size: 20px;
+    line-height: 1.3;
+    margin-bottom: 16px;
+}
+
+.favorite-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.favorite-actions a,
+.remove-button,
+.browse-link {
+    display: inline-block;
+    padding: 10px 13px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.favorite-actions a,
+.browse-link {
+    background: #f5f5f5;
+    color: #080808;
+}
+
+.remove-button {
+    background: #171717;
+    color: white;
+    cursor: pointer;
+}
+
+.favorite-actions a:hover,
+.browse-link:hover {
+    background: #ccc;
+}
+
+.remove-button:hover {
+    background: #333;
+}
+
+.empty-state,
+.error-state {
+    color: #aaa;
+    line-height: 1.6;
+    padding: 20px 0;
+}
+
+.browse-link {
+    margin-top: 16px;
+}
+
+footer {
+    border-top: 1px solid #333;
+    padding: 25px;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+    .site-header {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .main-nav {
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .hero {
+        padding-top: 40px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <a class="logo" href="index.html">DEEGAN'S PRINTING GARAGE</a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+
+        <div class="nav-dropdown">
+            <button class="nav-button" type="button">Shop ▼</button>
+            <div class="dropdown-menu">
+                <a href="index.html#ebikes">All Prints</a>
+                <a href="index.html#ebikes">E-Bikes</a>
+                <a href="ragdolls.html">Ragdolls</a>
+            </div>
+        </div>
+
+        <div class="nav-dropdown">
+            <button class="nav-button" type="button">More ▼</button>
+            <div class="dropdown-menu">
+                <a href="prices.html">Prices</a>
+                <a href="favorites.html" class="active" aria-current="page">Favorites</a>
+                <a href="custom-orders.html">Custom Orders</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+
+        <a class="favorites-link" href="favorites.html" aria-label="Favorites">♡</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Your Favorites</h1>
+    <p>Saved print files, all in one place.</p>
+</section>
+
+<main>
+    <div class="favorites-grid" id="favoritesGrid" aria-live="polite"></div>
+    <p class="empty-state" id="emptyState" hidden>
+        You haven't added any favorites yet.
+        <a class="browse-link" href="index.html#ebikes">Browse e-bikes</a>
+    </p>
+    <p class="error-state" id="errorState" role="alert" hidden></p>
+</main>
+
+<footer>
+    © 2026 Deegan's Printing Garage. All rights reserved.
+</footer>
+
+<script>
+const FAVORITES_KEY = 'deegans-printing-garage-favorites';
+const favoritesGrid = document.getElementById('favoritesGrid');
+const emptyState = document.getElementById('emptyState');
+const errorState = document.getElementById('errorState');
+
+function isValidFavorite(item) {
+    return item !== null
+        && typeof item === 'object'
+        && typeof item.id === 'string'
+        && typeof item.name === 'string'
+        && typeof item.image === 'string'
+        && typeof item.url === 'string';
+}
+
+function readFavorites() {
+    const stored = localStorage.getItem(FAVORITES_KEY);
+    const favorites = stored === null ? [] : JSON.parse(stored);
+
+    if (!Array.isArray(favorites) || !favorites.every(isValidFavorite)) {
+        throw new Error('Saved favorites have an invalid format.');
+    }
+
+    return favorites;
+}
+
+function createFavoriteCard(favorite) {
+    const card = document.createElement('article');
+    card.className = 'favorite-card';
+
+    const image = document.createElement('img');
+    image.src = favorite.image;
+    image.alt = favorite.name;
+    image.loading = 'lazy';
+
+    const info = document.createElement('div');
+    info.className = 'favorite-info';
+
+    const title = document.createElement('h2');
+    title.textContent = favorite.name;
+
+    const actions = document.createElement('div');
+    actions.className = 'favorite-actions';
+
+    const modelLink = document.createElement('a');
+    modelLink.href = favorite.url;
+    modelLink.target = '_blank';
+    modelLink.rel = 'noopener noreferrer';
+    modelLink.textContent = 'View model ↗';
+
+    const removeButton = document.createElement('button');
+    removeButton.className = 'remove-button';
+    removeButton.type = 'button';
+    removeButton.textContent = 'Remove';
+    removeButton.addEventListener('click', () => {
+        try {
+            const favorites = readFavorites()
+                .filter(item => item.id !== favorite.id);
+            localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+            renderFavorites();
+        } catch (error) {
+            showError(error);
+        }
+    });
+
+    actions.append(modelLink, removeButton);
+    info.append(title, actions);
+    card.append(image, info);
+    return card;
+}
+
+function showError(error) {
+    console.error('Unable to access saved favorites:', error);
+    favoritesGrid.replaceChildren();
+    emptyState.hidden = true;
+    errorState.textContent = 'Favorites could not be loaded or updated. Check browser storage and try again.';
+    errorState.hidden = false;
+}
+
+function renderFavorites() {
+    try {
+        const favorites = readFavorites();
+        favoritesGrid.replaceChildren(...favorites.map(createFavoriteCard));
+        emptyState.hidden = favorites.length > 0;
+        errorState.hidden = true;
+    } catch (error) {
+        showError(error);
+    }
+}
+
+window.addEventListener('storage', event => {
+    if (event.key === FAVORITES_KEY) {
+        renderFavorites();
+    }
+});
+
+renderFavorites();
+</script>
+
+</body>
+</html>
