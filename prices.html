@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
 <title>Prices | Deegan's Printing Garage</title>
 
 <style>
@@ -12,22 +13,28 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: #080808;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
 }
 
-header {
+.site-header {
     min-height: 95px;
+    background: #000;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 5%;
+    padding: 20px 5%;
     border-bottom: 1px solid #333;
     gap: 25px;
-    position: relative;
-    z-index: 100;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -36,36 +43,33 @@ header {
     font-size: 25px;
     font-weight: 900;
     letter-spacing: 2px;
+    white-space: nowrap;
 }
 
-.logo span {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 5px;
-    margin-top: 4px;
-}
-
-nav {
+.main-nav {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
-nav a,
+.main-nav a,
 .nav-button {
     color: white;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     background: none;
     border: none;
     cursor: pointer;
-    font-family: inherit;
+    padding: 12px 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-nav a:hover,
-.nav-button:hover {
-    color: #aaa;
+.main-nav a:hover,
+.nav-button:hover,
+.main-nav a.active {
+    border-bottom: 2px solid white;
 }
 
 .nav-dropdown {
@@ -84,13 +88,13 @@ nav a:hover,
     display: none;
     position: absolute;
     top: 100%;
-    left: -15px;
-    min-width: 185px;
-    background: #171717;
+    left: 0;
+    min-width: 190px;
+    background: #111;
     border: 1px solid #444;
     border-radius: 10px;
     padding: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .5);
+    z-index: 1000;
 }
 
 .nav-dropdown:hover .dropdown-menu,
@@ -102,12 +106,12 @@ nav a:hover,
     display: block;
     padding: 12px;
     border-radius: 6px;
-    font-size: 14px;
+    white-space: nowrap;
 }
 
 .dropdown-menu a:hover {
-    background: #333;
-    color: white;
+    background: #292929;
+    border-bottom: none;
 }
 
 .favorites-link {
@@ -157,6 +161,7 @@ nav a:hover,
     border-radius: 15px;
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
+    scroll-margin-top: 110px;
 }
 
 .price-card:hover {
@@ -194,29 +199,31 @@ footer {
     margin-top: 30px;
 }
 
-@media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    nav {
+@media (max-width: 700px) {
+    .site-header {
         justify-content: center;
-        gap: 17px;
-        flex-wrap: wrap;
+        flex-direction: column;
     }
 
-    nav a,
-    .nav-button {
-        font-size: 13px;
+    .logo {
+        font-size: 21px;
+    }
+
+    .main-nav {
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .hero {
+        padding-top: 40px;
+    }
+
+    .hero p {
+        font-size: 17px;
     }
 
     .section h2 {
         font-size: 27px;
-    }
-
-    .dropdown-menu {
-        min-width: 160px;
     }
 }
 </style>
@@ -224,20 +231,14 @@ footer {
 
 <body>
 
-<header>
-    <a href="index.html" class="logo">
-        DEEGAN'S
-        <span>PRINTING GARAGE</span>
-    </a>
+<header class="site-header">
+    <a class="logo" href="index.html">DEEGAN'S PRINTING GARAGE</a>
 
-    <nav aria-label="Main navigation">
-
+    <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
 
         <div class="nav-dropdown">
-            <button class="nav-button" type="button">
-                Shop <span>⌄</span>
-            </button>
+            <button class="nav-button" type="button">Shop ▼</button>
 
             <div class="dropdown-menu">
                 <a href="index.html#ebikes">All Prints</a>
@@ -249,12 +250,10 @@ footer {
         </div>
 
         <div class="nav-dropdown">
-            <button class="nav-button" type="button">
-                More <span>⌄</span>
-            </button>
+            <button class="nav-button" type="button">More ▼</button>
 
             <div class="dropdown-menu">
-                <a href="prices.html" aria-current="page">Prices</a>
+                <a href="prices.html" class="active" aria-current="page">Prices</a>
                 <a href="favorites.html">Favorites</a>
                 <a href="custom-orders.html">Custom Orders</a>
                 <a href="about.html">About</a>
