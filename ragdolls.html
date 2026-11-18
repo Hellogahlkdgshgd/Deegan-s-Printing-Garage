@@ -20,25 +20,25 @@ body {
 
 /* NAVIGATION */
 .site-header {
-    min-height: 85px;
-    background: white;
-    color: black;
+    min-height: 95px;
+    background: #000;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 5%;
+    padding: 20px 5%;
+    border-bottom: 1px solid #333;
     gap: 25px;
     flex-wrap: wrap;
-    position: relative;
-    z-index: 10;
 }
 
 .logo {
-    color: black;
+    color: white;
     text-decoration: none;
     font-size: 25px;
     font-weight: 900;
     letter-spacing: 2px;
+    white-space: nowrap;
 }
 
 .main-nav {
@@ -50,20 +50,21 @@ body {
 
 .main-nav a,
 .nav-button {
-    color: black;
+    color: white;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
     background: none;
     border: none;
     cursor: pointer;
-    font-family: inherit;
     padding: 12px 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .main-nav a:hover,
-.nav-button:hover {
-    opacity: 0.55;
+.nav-button:hover,
+.main-nav a.active {
+    border-bottom: 2px solid white;
 }
 
 .nav-dropdown {
@@ -74,13 +75,13 @@ body {
     display: none;
     position: absolute;
     top: 100%;
-    left: -15px;
-    min-width: 180px;
-    background: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 8px 20px #0002;
+    left: 0;
+    min-width: 190px;
+    background: #111;
+    border: 1px solid #444;
     border-radius: 10px;
     padding: 8px;
+    z-index: 1000;
 }
 
 .dropdown-menu a {
@@ -91,8 +92,8 @@ body {
 }
 
 .dropdown-menu a:hover {
-    background: #eee;
-    opacity: 1;
+    background: #292929;
+    border-bottom: none;
 }
 
 .nav-dropdown:hover .dropdown-menu,
@@ -100,13 +101,8 @@ body {
     display: block;
 }
 
-.dropdown-menu a.active {
-    background: #eee;
-}
-
 .favorites-link {
     font-size: 27px !important;
-    line-height: 1;
 }
 
 .hero {
@@ -260,20 +256,6 @@ footer {
 }
 
 @media (max-width: 600px) {
-    .site-header {
-        justify-content: center;
-    }
-
-    .main-nav {
-        justify-content: center;
-        gap: 18px;
-    }
-
-    .main-nav a,
-    .nav-button {
-        font-size: 14px;
-    }
-
     .hero {
         padding-top: 40px;
     }
@@ -286,10 +268,21 @@ footer {
         gap: 22px;
         flex-direction: column;
     }
+}
 
-    .dropdown-menu {
-        left: 50%;
-        transform: translateX(-50%);
+@media (max-width: 700px) {
+    .site-header {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .main-nav {
+        justify-content: center;
+        gap: 18px;
     }
 }
 </style>
@@ -299,15 +292,13 @@ footer {
 
 <!-- NAVIGATION -->
 <header class="site-header">
-    <a class="logo" href="index.html">DEEGAN'S</a>
+    <a class="logo" href="index.html">DEEGAN'S PRINTING GARAGE</a>
 
     <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
 
         <div class="nav-dropdown">
-            <button class="nav-button" type="button">
-                Shop <span>⌄</span>
-            </button>
+            <button class="nav-button" type="button">Shop ▼</button>
 
             <div class="dropdown-menu">
                 <a href="index.html#ebikes">All Prints</a>
@@ -319,9 +310,7 @@ footer {
         </div>
 
         <div class="nav-dropdown">
-            <button class="nav-button" type="button">
-                More <span>⌄</span>
-            </button>
+            <button class="nav-button" type="button">More ▼</button>
 
             <div class="dropdown-menu">
                 <a href="prices.html">Prices</a>
