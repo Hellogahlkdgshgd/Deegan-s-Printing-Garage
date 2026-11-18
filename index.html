@@ -116,10 +116,6 @@ body {
   border-bottom: none;
 }
 
-.favorites-link {
-  font-size: 27px !important;
-}
-
 button, input {
   font: inherit;
 }
@@ -337,6 +333,26 @@ main {
   font-size: clamp(21px, 3vw, 30px);
   line-height: 1.2;
   margin-bottom: 11px;
+}
+
+.favorite-button {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 9px 13px;
+  color: #f5f5f5;
+  background: #171717;
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.favorite-button:hover,
+.favorite-button.is-favorite {
+  background: #f5f5f5;
+  color: #080808;
+  border-color: #f5f5f5;
 }
 
 .tag {
@@ -609,14 +625,12 @@ footer {
       <button class="nav-button" type="button">More ▼</button>
       <div class="dropdown-menu">
         <a href="prices.html">Prices</a>
-        <a href="favorites.html">Favorites</a>
         <a href="custom-orders.html">Custom Orders</a>
         <a href="about.html">About</a>
       </div>
     </div>
 
-    <a class="favorites-link" href="favorites.html"
-       aria-label="Favorites">♡</a>
+    <a href="favorites.html">Favorites</a>
   </nav>
 </header>
 
@@ -671,7 +685,11 @@ footer {
       <!-- BIKE 1 -->
 
       <article class="bike-card" id="light-bee-x"
-        data-search="mini surron light bee x 1:9 scale electric dirt bike suspension wheels free">
+        data-search="mini surron light bee x 1:9 scale electric dirt bike suspension wheels free"
+        data-favorite-id="light-bee-x"
+        data-favorite-name="Mini Surron Light Bee X"
+        data-favorite-image="images/light-bee-x.webp"
+        data-favorite-url="https://makerworld.com/en/models/1607238-mini-surron-light-bee-x-scale-electric-dirt-bike">
 
         <img class="bike-image"
           src="images/light-bee-x.webp"
@@ -680,6 +698,7 @@ footer {
         <div class="bike-info">
 
           <h3>1. Mini Surron Light Bee X</h3>
+          <button class="favorite-button" type="button">♡ Add to Favorites</button>
 
           <span class="tag">Free</span>
 
@@ -704,7 +723,11 @@ footer {
       <!-- BIKE 2 -->
 
       <article class="bike-card" id="ultra-bee"
-        data-search="mini surron ultra bee scale electric dirt bike complete model">
+        data-search="mini surron ultra bee scale electric dirt bike complete model"
+        data-favorite-id="ultra-bee"
+        data-favorite-name="Mini Surron Ultra Bee"
+        data-favorite-image="images/ultra-bee.webp"
+        data-favorite-url="https://makerworld.com/en/models/2309089-mini-surron-ultra-bee-scale-electric-dirt-bike">
 
         <img class="bike-image"
           src="images/ultra-bee.webp"
@@ -713,6 +736,7 @@ footer {
         <div class="bike-info">
 
           <h3>2. Mini Surron Ultra Bee</h3>
+          <button class="favorite-button" type="button">♡ Add to Favorites</button>
 
           <p>
             Another complete bike design.
@@ -735,7 +759,11 @@ footer {
       <!-- BIKE 3 -->
 
       <article class="bike-card" id="talaria"
-        data-search="mini talaria x3 xxx electric dirt bike miniature model">
+        data-search="mini talaria x3 xxx electric dirt bike miniature model"
+        data-favorite-id="talaria"
+        data-favorite-name="Mini Talaria"
+        data-favorite-image="images/talaria-x3-xxx.webp"
+        data-favorite-url="https://makerworld.com/en/models/2228533-mini-talaria-x3-xxx-electric-dirt-bike">
 
         <img class="bike-image"
           src="images/talaria-x3-xxx.webp"
@@ -744,6 +772,7 @@ footer {
         <div class="bike-info">
 
           <h3>3. Mini Talaria</h3>
+          <button class="favorite-button" type="button">♡ Add to Favorites</button>
 
           <p>
             Miniature Talaria X3 XXX electric dirt bike model.
@@ -766,7 +795,11 @@ footer {
       <!-- BIKE 4 -->
 
       <article class="bike-card" id="stark-varg"
-        data-search="mini full suspension stark varg electric dirt bike suspension model">
+        data-search="mini full suspension stark varg electric dirt bike suspension model"
+        data-favorite-id="stark-varg"
+        data-favorite-name="Mini Full Suspension Stark Varg"
+        data-favorite-image="images/stark-varg.webp"
+        data-favorite-url="https://makerworld.com/en/models/2293135-mini-full-suspension-stark-varg-model">
 
         <img class="bike-image"
           src="images/stark-varg.webp"
@@ -775,6 +808,7 @@ footer {
         <div class="bike-info">
 
           <h3>4. Mini Full Suspension Stark Varg</h3>
+          <button class="favorite-button" type="button">♡ Add to Favorites</button>
 
           <span class="tag">Free</span>
 
@@ -848,6 +882,56 @@ search.addEventListener('input', () => {
   }`;
 
 });
+
+// FAVORITES SYSTEM
+const FAVORITES_KEY = 'deegans-printing-garage-favorites';
+
+function getFavorites() {
+  return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+}
+
+function saveFavorites(favorites) {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+}
+
+function updateFavoriteButtons() {
+  const favorites = getFavorites();
+
+  document.querySelectorAll('.bike-card[data-favorite-id]').forEach(card => {
+    const button = card.querySelector('.favorite-button');
+    const isSaved = favorites.some(item => item.id === card.dataset.favoriteId);
+
+    button.classList.toggle('is-favorite', isSaved);
+    button.textContent = isSaved ? '✓ Added to Favorites' : '♡ Add to Favorites';
+    button.setAttribute('aria-pressed', String(isSaved));
+  });
+}
+
+document.querySelectorAll('.bike-card[data-favorite-id]').forEach(card => {
+  const button = card.querySelector('.favorite-button');
+
+  button.addEventListener('click', () => {
+    let favorites = getFavorites();
+    const id = card.dataset.favoriteId;
+    const alreadySaved = favorites.some(item => item.id === id);
+
+    if (alreadySaved) {
+      favorites = favorites.filter(item => item.id !== id);
+    } else {
+      favorites.push({
+        id: id,
+        name: card.dataset.favoriteName,
+        image: card.dataset.favoriteImage,
+        url: card.dataset.favoriteUrl
+      });
+    }
+
+    saveFavorites(favorites);
+    updateFavoriteButtons();
+  });
+});
+
+updateFavoriteButtons();
 
 </script>
 
