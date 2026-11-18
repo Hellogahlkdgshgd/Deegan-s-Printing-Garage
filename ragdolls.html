@@ -191,6 +191,26 @@ body {
     margin-bottom: 5px;
 }
 
+.favorite-button {
+    display: inline-block;
+    margin: 0 0 12px;
+    padding: 9px 13px;
+    color: #080808;
+    background: white;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.favorite-button:hover,
+.favorite-button.is-favorite {
+    background: #080808;
+    color: white;
+    border-color: #080808;
+}
+
 .card-info p {
     color: #555;
     margin-bottom: 15px;
@@ -334,11 +354,16 @@ footer {
 
 <section class="products" id="productList" aria-label="Ragdoll print files">
 
-    <article class="card" id="dummy-13">
+    <article class="card" id="dummy-13"
+        data-favorite-id="dummy-13-standing"
+        data-favorite-name="Dummy 13 - Standing pose"
+        data-favorite-image="images/dummy-13-standing.webp"
+        data-favorite-url="https://www.printables.com/model/981111-dummy-13-version-10">
         <img src="images/dummy-13-standing.webp" alt="Dummy 13 standing pose">
         <div class="card-info">
             <h2>Dummy 13</h2>
             <p>Version 1.0 · Standing pose</p>
+            <button class="favorite-button" type="button">♡ Add to Favorites</button>
             <a class="download"
                href="https://www.printables.com/model/981111-dummy-13-version-10"
                target="_blank" rel="noopener noreferrer">
@@ -347,13 +372,18 @@ footer {
         </div>
     </article>
 
-    <article class="card">
+    <article class="card"
+        data-favorite-id="dummy-13-action"
+        data-favorite-name="Dummy 13 - Action pose"
+        data-favorite-image="images/dummy-13-standing.webp"
+        data-favorite-url="https://www.printables.com/model/981111-dummy-13-version-10">
         <div class="image-placeholder" aria-hidden="true">
             DUMMY 13
         </div>
         <div class="card-info">
             <h2>Dummy 13</h2>
             <p>Version 1.0 · Action pose</p>
+            <button class="favorite-button" type="button">♡ Add to Favorites</button>
             <a class="download"
                href="https://www.printables.com/model/981111-dummy-13-version-10"
                target="_blank" rel="noopener noreferrer">
@@ -362,13 +392,18 @@ footer {
         </div>
     </article>
 
-    <article class="card">
+    <article class="card"
+        data-favorite-id="dummy-13-sitting"
+        data-favorite-name="Dummy 13 - Sitting pose"
+        data-favorite-image="images/dummy-13-standing.webp"
+        data-favorite-url="https://www.printables.com/model/981111-dummy-13-version-10">
         <div class="image-placeholder" aria-hidden="true">
             DUMMY 13
         </div>
         <div class="card-info">
             <h2>Dummy 13</h2>
             <p>Version 1.0 · Sitting pose</p>
+            <button class="favorite-button" type="button">♡ Add to Favorites</button>
             <a class="download"
                href="https://www.printables.com/model/981111-dummy-13-version-10"
                target="_blank" rel="noopener noreferrer">
@@ -377,13 +412,18 @@ footer {
         </div>
     </article>
 
-    <article class="card">
+    <article class="card"
+        data-favorite-id="dummy-13-custom"
+        data-favorite-name="Dummy 13 - Custom pose"
+        data-favorite-image="images/dummy-13-standing.webp"
+        data-favorite-url="https://www.printables.com/model/981111-dummy-13-version-10">
         <div class="image-placeholder" aria-hidden="true">
             DUMMY 13
         </div>
         <div class="card-info">
             <h2>Dummy 13</h2>
             <p>Version 1.0 · Custom pose</p>
+            <button class="favorite-button" type="button">♡ Add to Favorites</button>
             <a class="download"
                href="https://www.printables.com/model/981111-dummy-13-version-10"
                target="_blank" rel="noopener noreferrer">
@@ -418,6 +458,54 @@ footer {
 const searchInput = document.getElementById("searchInput");
 const cards = document.querySelectorAll(".card");
 const noResults = document.getElementById("noResults");
+const FAVORITES_KEY = "deegans-printing-garage-favorites";
+
+function getFavorites() {
+    return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+}
+
+function saveFavorites(favorites) {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+}
+
+function updateFavoriteButtons() {
+    const favorites = getFavorites();
+
+    document.querySelectorAll(".card[data-favorite-id]").forEach(card => {
+        const button = card.querySelector(".favorite-button");
+        const isSaved = favorites.some(item => item.id === card.dataset.favoriteId);
+
+        button.classList.toggle("is-favorite", isSaved);
+        button.textContent = isSaved ? "✓ Added to Favorites" : "♡ Add to Favorites";
+        button.setAttribute("aria-pressed", String(isSaved));
+    });
+}
+
+document.querySelectorAll(".card[data-favorite-id]").forEach(card => {
+    const button = card.querySelector(".favorite-button");
+
+    button.addEventListener("click", () => {
+        let favorites = getFavorites();
+        const id = card.dataset.favoriteId;
+        const alreadySaved = favorites.some(item => item.id === id);
+
+        if (alreadySaved) {
+            favorites = favorites.filter(item => item.id !== id);
+        } else {
+            favorites.push({
+                id,
+                name: card.dataset.favoriteName,
+                image: card.dataset.favoriteImage,
+                url: card.dataset.favoriteUrl
+            });
+        }
+
+        saveFavorites(favorites);
+        updateFavoriteButtons();
+    });
+});
+
+updateFavoriteButtons();
 
 searchInput.addEventListener("input", () => {
     const filter = searchInput.value.trim().toLowerCase();
