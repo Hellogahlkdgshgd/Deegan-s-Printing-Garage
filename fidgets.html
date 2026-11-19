@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fidgets | Deegan's Printing Garage</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #000;
+  padding: 22px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.logo { font-size: 20px; font-weight: bold; }
+
+nav { display: flex; gap: 24px; align-items: center; }
+
+nav a, .shop-button {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.shop { position: relative; }
+.shop-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  background: #171717;
+  padding: 10px;
+  min-width: 140px;
+  border-radius: 8px;
+  z-index: 5;
+}
+
+.shop:hover .dropdown,
+.shop:focus-within .dropdown { display: block; }
+
+.dropdown a {
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.dropdown a:hover { background: #292929; }
+
+.active {
+  background: #f5f5f5;
+  color: #080808 !important;
+}
+
+main { padding: 65px 7%; }
+
+h1 { font-size: 42px; margin-bottom: 12px; }
+
+.description { color: #aaa; margin-bottom: 35px; }
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: #151515;
+  border: 1px solid #292929;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.card h2 { font-size: 20px; margin-bottom: 10px; }
+.card p { color: #aaa; font-size: 14px; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">DEEGAN'S PRINTING GARAGE</div>
+
+  <nav>
+    <a href="index.html">Home</a>
+
+    <div class="shop">
+      <button class="shop-button">Shop ▾</button>
+      <div class="dropdown">
+        <a href="index.html#ebikes">E-Bikes</a>
+        <a href="ragdolls.html">Ragdolls</a>
+        <a href="fidgets.html" class="active">Fidgets</a>
+      </div>
+    </div>
+
+    <a href="prices.html">Prices</a>
+    <a href="favorites.html">Favorites</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Fidgets</h1>
+  <p class="description">
+    Check out our collection of 3D-printed fidgets and fun toys.
+  </p>
+
+  <div class="products">
+    <div class="card">
+      <h2>Coming Soon</h2>
+      <p>New 3D-printed fidgets will be added here soon.</p>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
